@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verifikasi Wajah</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">
+  <img src="./images/logo.png" alt="Logo">
+</div>
+
+        <div>
+          <h1>Face Letter</h1>
+          <p class="sub">Verifikasi muka dulu yaa, nanti baru bisa buka isinya!</p>
+        </div>
+      </div>
+      <span class="pill">🔒 Private</span>
+    </div>
+
+    <div class="grid">
+      <div class="card videoWrap">
+        <video id="video" autoplay muted playsinline></video>
+
+        <div class="controls">
+          <button id="startBtn" class="btn primary">Mulai Verifikasi</button>
+          <button id="stopBtn" class="btn secondary" disabled>Stop</button>
+        </div>
+
+        <p id="status" class="status">Status: belum mulai</p>
+      </div>
+
+      <div class="card sidebar">
+        <h2>Tips biar cepet match trus langsung masuk</h2>
+        <ul>
+          <li>Pastiian mukanya keliatan jelas dan terang.</li>
+          <li>Hadapin mukanya ke arah kamera (jangan miring apalagi kejauhan).</li>
+          <li>Jarak ideal sekitar 30 – 60 cm dari kamera.</li>
+          <li>Kalo bisa bukanya nanti yaa pas di rumah hehe.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="https://unpkg.com/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script defer src="./script.js"></script>
+</body>
+</html>
