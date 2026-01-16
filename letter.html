@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Surat</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <h1>Face Letter</h1>
+          <p class="sub">Surat ini hanya muncul setelah verifikasi.</p>
+        </div>
+      </div>
+      <a class="btn secondary" href="./index.html">← Verifikasi</a>
+    </div>
+
+    <div class="card letterCard">
+      <div class="letterHead">
+        <h2 id="letterTitle">Memuat...</h2>
+        <div class="controls" style="margin:0">
+       <a id="replyBtn" class="btn primary" target="_blank" rel="noopener">
+  Balas Pesan
+</a>
+<button id="logoutBtn" class="btn secondary">
+  Keluar
+</button>
+
+<div class="musicBox">
+  <audio id="bgMusic" loop>
+    <source src="./musik/lagu.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+        </div>
+      </div>
+
+      <div class="letterBody">
+        <div id="letterContent" class="paper"></div>
+        <div class="footerHint" id="hint"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./letters.js"></script>
+<script>
+  // ambil hasil verifikasi
+  const label = sessionStorage.getItem("verifiedLabel");
+  if (!label) {
+    window.location.href = "./index.html";
+  }
+
+  const letter = LETTERS[label];
+  const titleEl = document.getElementById("letterTitle");
+  const contentEl = document.getElementById("letterContent");
+
+  if (!letter) {
+    titleEl.textContent = "Surat tidak ditemukan";
+    contentEl.innerHTML = "<p>Surat tidak tersedia.</p>";
+  } else {
+    titleEl.textContent = letter.title;
+    contentEl.innerHTML = letter.content;
+  }
+
+  // ==============================
+  // WHATSAPP CONFIG
+  // ==============================
+
+  // Nomor WA tujuan (format internasional, TANPA +, TANPA 0 depan)
+  const WA_PHONE = "6285711969687"; // dari 085711969687
+
+  // Pesan otomatis
+  const MESSAGE = "halo... (bebas mau bales apa)";
+
+  // Buat link WhatsApp
+  const waLink =
+    "https://wa.me/" +
+    WA_PHONE +
+    "?text=" +
+    encodeURIComponent(MESSAGE);
+
+  // Set ke tombol
+  document.getElementById("replyBtn").href = waLink;
+
+  // Tombol keluar
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    sessionStorage.removeItem("verifiedLabel");
+    window.location.href = "./index.html";
+  });
+</script>
+<script>
+  const music = document.getElementById("bgMusic");
+
+  let started = false;
+
+  function startMusic() {
+    if (started) return;
+    started = true;
+
+    music.volume = 0;
+    music.play();
+
+    // fade-in biar lembut
+    const fade = setInterval(() => {
+      if (music.volume < 0.7) {
+        music.volume += 0.05;
+      } else {
+        clearInterval(fade);
+      }
+    }, 120);
+
+    document.removeEventListener("click", startMusic);
+    document.removeEventListener("touchstart", startMusic);
+  }
+
+  document.addEventListener("click", startMusic);
+  document.addEventListener("touchstart", startMusic);
+</script>
+
+</body>
+</html>
